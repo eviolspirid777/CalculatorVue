@@ -41,174 +41,134 @@
 </template>
 
 <script>
-  import { ref } from 'vue'
-
-  export default{
-    setup(){
-  const textbox = ref('')
-  const M1 = ref(0)
-  const M2 = ref(0)
-  
-  const nulClick = () =>{
-    textbox.value +='0'
+export default{
+    data(){
+      textbox = '',
+      M1 = 0,
+      M2 = 0
+  },
+    methods:{
+      nulClick(){
+        textbox.value +='0'
+      },
+      oneClick(){
+        textbox.value += '1'
+      },
+      twoClick() {
+        textbox.value += '2'
+      },
+      threeClick(){
+        textbox.value +='3'
+      },
+      fourClick (){
+        textbox.value +='4'
+      },
+      fiveClick(){
+        textbox.value +='5'
+      },
+      sixClick(){
+        textbox.value +='6'
+      },
+      sevenClick(){
+        textbox.value +='7'
+      },
+      eightClick(){
+        textbox.value +='8'
+      },
+      nineClick(){
+        textbox.value +='9'
+      },
+      delClick(){
+        textbox.value =''
+      },
+      equalClick(){
+        var result = 0;
+        var text = textbox.value.split(' ');
+        var oper1 = parseFloat(text[0]);
+        var oper2 = parseFloat(text[2]);
+        if(text[1] == '+')
+            result = oper1 + oper2;
+        if(text[1] == '-')
+            result = oper1 - oper2;
+        if(text[1] == '/')
+            result = oper1 / oper2;
+        if(text[1] == '*')
+            result = oper1 * oper2;
+        if(text[1] == '^')
+            result = Math.pow(oper1, oper2)
+        textbox.value = result;
+      },
+      plusClick(){
+        textbox.value += ' + '
+      },
+      minusClick(){
+        textbox.value += ' - '
+      },
+      divClick(){
+        textbox.value += ' / '
+      },
+      multClick(){
+        textbox.value += ' * '
+      },
+      m1RClick(){
+        textbox.value += M1.value
+      },
+      m2RClick(){
+        textbox.value += M2.value
+      },
+      m1CClick(){
+        M1.value = 0
+      },
+      m2CClic(){
+        M2.value = 0
+      },
+      m1PlusClick(){
+        M1.value = parseFloat(M1.value) + parseFloat(textbox.value)
+      },
+      m2PlusClick(){
+        M1.value = parseFloat(M1.value) + parseFloat(textbox.value)
+      },
+      m1MinusClick(){
+        M1.value = parseFloat(M1.value) - parseFloat(textbox.value)
+      },
+      m2MinusClick(){
+        M1.value = parseFloat(M2.value) - parseFloat(textbox.value)
+      },
+      factClick(){
+        var result = 1
+        for(var i = 1; i <= parseFloat(textbox.value);i++){
+          result *= i
+        }
+        textbox.value = result
+      },
+      dotClick(){
+        textbox.value += `.`
+      },
+      expClick(){
+        textbox.value =  Math.exp(textbox.value)
+      },
+      exponentiationClick() {
+        textbox.value += " ^ "
+      },
+      cosClick () {
+        textbox.value = Math.cos(textbox.value);
+      },
+      sinClick () {
+        textbox.value = Math.sin(textbox.value);
+      },
+      tgClick () {
+        textbox.value = Math.tan(textbox.value);
+      },
+      arctgClick () {
+        textbox.value = Math.atan(textbox.value);
+      },
+      lnClick (){
+        textbox.value = Math.log(textbox.value)
+      },
+      logClick () {
+                                                            //напиши обработку этого события
+      }
   }
-
-  const oneClick = () => {
-    textbox.value += '1'
-  }
-
-  const twoClick = () => {
-    textbox.value += '2'
-  }
-  const threeClick = () =>{
-    textbox.value +='3'
-  }
-  const fourClick = () =>{
-    textbox.value +='4'
-  }
-  const fiveClick = () =>{
-    textbox.value +='5'
-  }
-  const sixClick = () =>{
-    textbox.value +='6'
-  }
-  const sevenClick = () =>{
-    textbox.value +='7'
-  }
-  const eightClick = () =>{
-    textbox.value +='8'
-  }
-  const nineClick = () =>{
-    textbox.value +='9'
-  }
-  const delClick = () =>{
-    textbox.value =''
-  }
-  const equalClick = () =>{
-    var result = 0;
-    var text = textbox.value.split(' ');
-    var oper1 = parseFloat(text[0]);
-    var oper2 = parseFloat(text[2]);
-    if(text[1] == '+')
-        result = oper1 + oper2;
-    if(text[1] == '-')
-        result = oper1 - oper2;
-    if(text[1] == '/')
-        result = oper1 / oper2;
-    if(text[1] == '*')
-        result = oper1 * oper2;
-    if(text[1] == '^')
-        result = Math.pow(oper1, oper2)
-    textbox.value = result;
-  }
-  const plusClick = () =>{
-    textbox.value += ' + '
-  }
-  const minusClick = () =>{
-    textbox.value += ' - '
-  }
-  const divClick = () =>{
-    textbox.value += ' / '
-  }
-  const multClick = () =>{
-    textbox.value += ' * '
-  }
-  const m1RClick = () =>{
-    textbox.value += M1.value
-  }
-  const m2RClick = () =>{
-    textbox.value += M2.value
-  }
-  const m1CClick = () =>{
-    M1.value = 0
-  }
-  const m2CClick = () =>{
-    M2.value = 0
-  }
-  const m1PlusClick = () =>{
-    M1.value = parseFloat(M1.value) + parseFloat(textbox.value)
-  }
-  const m2PlusClick = () =>{
-    M1.value = parseFloat(M1.value) + parseFloat(textbox.value)
-  }
-  const m1MinusClick = () =>{
-    M1.value = parseFloat(M1.value) - parseFloat(textbox.value)
-  }
-  const m2MinusClick = () =>{
-    M1.value = parseFloat(M2.value) - parseFloat(textbox.value)
-  }
-  const factClick = () => {
-    var result = 1
-    for(var i = 1; i <= parseFloat(textbox.value);i++){
-      result *= i
-    }
-    textbox.value = result
-  }
-  const dotClick = () =>{
-    textbox.value += `.`
-  }
-  const expClick = () =>{
-    textbox.value =  Math.exp(textbox.value)
-  }
-  const exponentiationClick = () => textbox.value += " ^ "
-  const cosClick = () => {
-    textbox.value = Math.cos(textbox.value);
-  }
-  const sinClick = () => {
-    textbox.value = Math.sin(textbox.value);
-  }
-  const tgClick = () => {
-    textbox.value = Math.tan(textbox.value);
-  }
-  const arctgClick = () => {
-    textbox.value = Math.atan(textbox.value);
-  }
-  const lnClick = () => {
-    textbox.value = Math.log(textbox.value)
-  }
-  const logClick = () => {
-                                                        //напиши обработку этого события
-    }
-  return{
-    textbox,
-    M1,
-    M2,
-    nulClick,
-    oneClick,
-    twoClick,
-    threeClick,
-    fourClick,
-    fiveClick,
-    sixClick,
-    sevenClick,
-    eightClick,
-    nineClick,
-    delClick,
-    equalClick,
-    plusClick,
-    minusClick,
-    divClick,
-    multClick,
-    m1RClick,
-    m2RClick,
-    m1CClick,
-    m2CClick,
-    m1PlusClick,
-    m2PlusClick,
-    m1MinusClick,
-    m2MinusClick,
-    factClick,
-    dotClick,
-    expClick,
-    exponentiationClick,
-    cosClick,
-    sinClick,
-    tgClick,
-    arctgClick,
-    lnClick,
-    logClick
-  }
-}
 }
 </script>
 
