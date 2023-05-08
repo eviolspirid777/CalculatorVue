@@ -22,7 +22,7 @@ The code seems to have a few errors, such as uninitialized variables and wrong m
       <button @click="equalClick">=</button>
       <button @click="dotClick">,</button>
       <button @click="nulClick">0</button>
-      <button @click="expClick">exp</button>
+      <button @click="spaceClick">|__|</button>
       <button @click="exponentiationClick">x^y</button>
       <button @click="cosClick">cos</button>
       <button @click="sinClick">sin</button>
@@ -38,6 +38,7 @@ The code seems to have a few errors, such as uninitialized variables and wrong m
       <button @click="m2CClick">M2C</button>
       <button @click="lnClick">Ln</button>
       <button @click="logClick">Log</button>
+      <button @click="expClick">exp</button>
     </div>
   </div>
 </template>
@@ -99,6 +100,12 @@ export default {
             result = oper1 * oper2;
         if(text[1] == '^')
             result = Math.pow(oper1, oper2)
+        if(text[0] == 'LOG'){
+          var strs = this.textbox.split(' ');
+          var number = parseFloat(strs[2]);
+          var base = parseFloat(strs[1]);
+          result = Math.log(number) / Math.log(base);
+        }
         this.textbox = result;
       },
       plusClick(){
@@ -147,6 +154,9 @@ export default {
       dotClick(){
         this.textbox += `.`
       },
+      spaceClick(){
+        this.textbox += ' '
+      },
       expClick(){
         this.textbox =  Math.exp(this.textbox)
       },
@@ -166,10 +176,10 @@ export default {
         this.textbox = Math.atan(this.textbox);
       },
       lnClick (){
-        this.textbox = Math.log(this.textbox)
+        this.textbox = Math.log(this.textbox);
       },
       logClick () {
-                                                            //напиши обработку этого события
+        this.textbox += "LOG "
       }
   }
 }
