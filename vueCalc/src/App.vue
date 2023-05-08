@@ -40,8 +40,11 @@
 </div>
 </template>
 
-<script setup>
+<script>
   import { ref } from 'vue'
+
+  export default{
+    setup(){
   const textbox = ref('')
   const M1 = ref(0)
   const M2 = ref(0)
@@ -165,7 +168,48 @@
   }
   const logClick = () => {
                                                         //напиши обработку этого события
+    }
+  return{
+    textbox,
+    M1,
+    M2,
+    nulClick,
+    oneClick,
+    twoClick,
+    threeClick,
+    fourClick,
+    fiveClick,
+    sixClick,
+    sevenClick,
+    eightClick,
+    nineClick,
+    delClick,
+    equalClick,
+    plusClick,
+    minusClick,
+    divClick,
+    multClick,
+    m1RClick,
+    m2RClick,
+    m1CClick,
+    m2CClick,
+    m1PlusClick,
+    m2PlusClick,
+    m1MinusClick,
+    m2MinusClick,
+    factClick,
+    dotClick,
+    expClick,
+    exponentiationClick,
+    cosClick,
+    sinClick,
+    tgClick,
+    arctgClick,
+    lnClick,
+    logClick
   }
+}
+}
 </script>
 
 
