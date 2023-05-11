@@ -1,5 +1,3 @@
-The code seems to have a few errors, such as uninitialized variables and wrong method names. Below is the corrected code:
-
 <template>
   <div class="calculator">
     <div class="calculator__output">{{textbox}}</div>
@@ -11,11 +9,11 @@ The code seems to have a few errors, such as uninitialized variables and wrong m
       <button @click="nineClick">9</button>
       <button @click="eightClick">8</button>
       <button @click="sevenClick">7</button>
-      <button @click="delClick">del</button>
+      <button @click="delClick">&larr;</button>
       <button @click="sixClick">6</button>
       <button @click="fiveClick">5</button>
       <button @click="fourClick">4</button>
-      <button @click="factClick">!n</button>
+      <button @click="clearClick">C</button>
       <button @click="threeClick">3</button>
       <button @click="twoClick">2</button>
       <button @click="oneClick">1</button>
@@ -39,6 +37,7 @@ The code seems to have a few errors, such as uninitialized variables and wrong m
       <button @click="lnClick">Ln</button>
       <button @click="logClick">Log</button>
       <button @click="expClick">exp</button>
+      <button @click="factClick">!n</button>
     </div>
   </div>
 </template>
@@ -83,9 +82,12 @@ export default {
       this.textbox += '9'
     },
     delClick() {
+      this.textbox = this.textbox.slice(0, this.textbox.length - 1);
+    },
+    clearClick(){
       this.textbox = ''
     },
-      equalClick(){
+    equalClick(){
         var result = 0;
         var text = this.textbox.split(' ');
         var oper1 = parseFloat(text[0]);
@@ -180,13 +182,7 @@ export default {
       },
       logClick () {
         this.textbox += "LOG "
-      }
+      },
   }
 }
 </script>
-
-
-
-<style scoped>
-
-</style>
