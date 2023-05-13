@@ -17,7 +17,7 @@
       <button @click="threeClick">3</button>
       <button @click="twoClick">2</button>
       <button @click="oneClick">1</button>
-      <button @click="equalClick">=</button>
+      <button class="calculator__key--enter" @click="equalClick">=</button>
       <button @click="dotClick">,</button>
       <button @click="nulClick">0</button>
       <button @click="spaceClick">|__|</button>
@@ -92,17 +92,22 @@ export default {
         var text = this.textbox.split(' ');
         var oper1 = parseFloat(text[0]);
         var oper2 = parseFloat(text[2]);
-        if(text[1] == '+')
+        if(text[1] === '+')
             result = oper1 + oper2;
-        if(text[1] == '-')
+        else if(text[1] === '-')
             result = oper1 - oper2;
-        if(text[1] == '/')
-            result = oper1 / oper2;
-        if(text[1] == '*')
+        else if(text[1] === '/')
+        {
+            if(oper2 !== 0)
+              result = oper1 / oper2;
+            else
+              result = "Error!";
+        }
+        else if(text[1] === '*')
             result = oper1 * oper2;
-        if(text[1] == '^')
+        else if(text[1] === '^')
             result = Math.pow(oper1, oper2)
-        if(text[0] == 'LOG'){
+        else if(text[0] ==='LOG'){
           var strs = this.textbox.split(' ');
           var number = parseFloat(strs[2]);
           var base = parseFloat(strs[1]);
