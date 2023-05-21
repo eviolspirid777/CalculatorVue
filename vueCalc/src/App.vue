@@ -2,6 +2,14 @@
   <div class="calculator">
     <div class="calculator__output">{{textbox}}</div>
     <div class="calculator__keys">
+      <button @click="m1PlusClick" class="calculator__key calculator__key--memory">M1+</button>
+      <button @click="m1MinusClick" class="calculator__key calculator__key--memory">M1-</button>
+      <button @click="m1RClick" class="calculator__key calculator__key--memory">M1R</button>
+      <button @click="m1CClick" class="calculator__key calculator__key--memory">M1C</button>
+      <button @click="m2PlusClick" class="calculator__key calculator__key--memory">M2+</button>
+      <button @click="m2MinusClick" class="calculator__key calculator__key--memory">M2-</button>
+      <button @click="m2RClick" class="calculator__key calculator__key--memory">M2R</button>
+      <button @click="m2CClick" class="calculator__key calculator__key--memory">M2C</button>
       <button @click="plusClick" class="calculator__key calculator__key--operator">+</button>
       <button @click="minusClick" class="calculator__key calculator__key--operator">-</button>
       <button @click="multClick" class="calculator__key calculator__key--operator">*</button>
@@ -17,29 +25,20 @@
       <button @click="threeClick" class="calculator__key">3</button>
       <button @click="twoClick" class="calculator__key">2</button>
       <button @click="oneClick" class="calculator__key">1</button>
-      <button @click="equalClick" class="calculator__key calculator__key--enter">=</button>
+      <button @click="sqrtClick" class="calculator__key calculator__key--operator">√x</button>
       <button @click="dotClick" class="calculator__key calculator__key--operator">,</button>
       <button @click="nulClick" class="calculator__key">0</button>
-      <button @click="spaceClick" class="calculator__key calculator__key--operator">|__|</button>
       <button @click="exponentiationClick" class="calculator__key calculator__key--operator">x^y</button>
+      <button @click="equalClick" class="calculator__key calculator__key--enter">=</button>
       <button @click="cosClick" class="calculator__key calculator__key--operator">cos</button>
       <button @click="sinClick" class="calculator__key calculator__key--operator">sin</button>
       <button @click="tgClick" class="calculator__key calculator__key--operator">tg</button>
       <button @click="arctgClick" class="calculator__key calculator__key--operator">arctg</button>
-      <button @click="m1PlusClick" class="calculator__key calculator__key--memory">M1+</button>
-      <button @click="m1MinusClick" class="calculator__key calculator__key--memory">M1-</button>
-      <button @click="m1RClick" class="calculator__key calculator__key--memory">M1R</button>
-      <button @click="m1CClick" class="calculator__key calculator__key--memory">M1C</button>
-      <button @click="m2PlusClick" class="calculator__key calculator__key--memory">M2+</button>
-      <button @click="m2MinusClick" class="calculator__key calculator__key--memory">M2-</button>
-      <button @click="m2RClick" class="calculator__key calculator__key--memory">M2R</button>
-      <button @click="m2CClick" class="calculator__key calculator__key--memory">M2C</button>
       <button @click="lnClick" class="calculator__key calculator__key--operator">Ln</button>
-      <button @click="logClick" class="calculator__key calculator__key--operator">Log</button>
       <button @click="expClick" class="calculator__key calculator__key--operator">exp</button>
       <button @click="factClick" class="calculator__key calculator__key--operator">!n</button>
-</div>
-
+      <button @click="reverseClick" class="calculator__key calculator__key--operator">1/X</button>
+    </div>
   </div>
 </template>
 <script>
@@ -52,8 +51,19 @@ export default {
     }
   },
   methods: {
+    checkSign(){
+      if(this.textbox.includes('+') || this.textbox.includes('-') ||this.textbox.includes('*') || this.textbox.includes('/'))
+      {
+        return true;
+      }
+      else
+      {
+        return false;
+      }
+    },
     nulClick() {
-      this.textbox += '0'
+      if(!this.textbox.startsWith('0'))
+        this.textbox += '0'
     },
     oneClick() {
       this.textbox += '1'
@@ -108,25 +118,23 @@ export default {
             result = oper1 * oper2;
         else if(text[1] === '^')
             result = Math.pow(oper1, oper2)
-        else if(text[0] ==='LOG'){
-          var strs = this.textbox.split(' ');
-          var number = parseFloat(strs[2]);
-          var base = parseFloat(strs[1]);
-          result = Math.log(number) / Math.log(base);
-        }
         this.textbox = result;
       },
       plusClick(){
-        this.textbox += ' + '
+        if(!this.checkSign())
+          this.textbox += ' + '
       },
       minusClick(){
-        this.textbox += ' - '
+        if(!this.checkSign())
+          this.textbox += ' - '
       },
       divClick(){
-        this.textbox += ' / '
+        if(!this.checkSign())
+          this.textbox += ' / '
       },
       multClick(){
-        this.textbox += ' * '
+        if(!this.checkSign())
+          this.textbox += ' * '
       },
       m1RClick(){
         this.textbox += this.M1
@@ -153,50 +161,55 @@ export default {
         this.M2 = parseFloat(this.M2) - parseFloat(this.textbox)
       },
       factClick(){
-        var result = 1
-        for(var i = 1; i <=parseFloat(this.textbox);i++){
-result *= i
-}
-this.textbox = result
-},
-dotClick(){
-this.textbox += `.`
-},
-spaceClick(){
-this.textbox += ' '
-},
-expClick(){
-this.textbox = Math.exp(this.textbox)
-},
-exponentiationClick() {
-this.textbox += " ^ "
-},
-cosClick () {
-this.textbox = Math.cos(this.textbox);
-},
-sinClick () {
-this.textbox = Math.sin(this.textbox);
-},
-tgClick () {
-this.textbox = Math.tan(this.textbox);
-},
-arctgClick () {
-this.textbox = Math.atan(this.textbox);
-},
-lnClick (){
-this.textbox = Math.log(this.textbox);
-},
-logClick () {
-this.textbox += "LOG "
-},
-}
+        if(!this.textbox.includes('.'))
+        {
+          var result = 1
+          for(var i = 1; i <=parseFloat(this.textbox);i++){
+          result *= i
+          }
+          this.textbox = result
+        }
+        else
+          this.textbox = "0";
+      },
+      reverseClick(){
+        this.textbox = 1 / parseFloat(this.textbox)
+      },
+      dotClick(){
+      this.textbox += `.`
+      },
+      expClick(){
+      this.textbox = Math.exp(this.textbox)
+      },
+      exponentiationClick() {
+      this.textbox += " ^ "
+      },
+      cosClick(){
+      this.textbox = Math.cos(this.textbox);
+      },
+      sinClick(){
+      this.textbox = Math.sin(this.textbox);
+      },
+      tgClick(){
+      this.textbox = Math.tan(this.textbox);
+      },
+      arctgClick(){
+      this.textbox = Math.atan(this.textbox);
+      },
+      lnClick(){
+      this.textbox = Math.log(this.textbox);
+      },
+      sqrtClick(){
+        this.textbox = Math.sqrt(parseFloat(this.textbox));
+      }
+  }
 }
 </script>
 
 <style>
 .calculator {
   border-radius: 20px;
-  box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.15), 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+  box-shadow: 0px 3px 6px 0px rgba(126, 7, 7, 0.788), 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
   margin-inline-start: auto;
   margin-inline-end: auto;
   margin-block-start: 32px;
@@ -206,7 +219,7 @@ this.textbox += "LOG "
 .calculator__output {
   height: 40px;
   width: 989px;
-  background: hsl(203, 11%, 43%);
+  background: rgba(126, 7, 7, 0.685);
   color: hsl(0, 0%, 100%);
   font-size: 32px;
   padding-block-start: 8px;
@@ -218,16 +231,18 @@ this.textbox += "LOG "
   display: grid;
   grid-template-columns: repeat(4,1fr);
   grid-gap: 1px;
-  background: hsl(0, 4%, 5%);
+  background: hsl(0, 56%, 27%);
 }
 .calculator__key {
+  border-radius: 5px; 
   background: hsla(207, 25%, 86%, 0.788);
   border: none;
-  padding-block-start: 16px;
+  padding-block-start: 25px;
   padding-block-end: 16px;
-  padding-inline-end: 192px;
+  padding-inline-end: 19px;
   padding-inline-start: 20px;
-  font-size: 24;
+  font-size: 20px;
+  transition: background 0.6s;
 }
 .calculator__key:hover {
   background: hsla(207, 25%, 86%, 0.349);
@@ -239,7 +254,7 @@ this.textbox += "LOG "
   outline: none;
 }
 .calculator__key--operator {
-  background: hsl(208, 25%, 86%);
+  background: hsl(0, 25%, 86%);
 }
 .calculator__key--memory{
   background: hsla(207, 25%, 86%, 0.623);
